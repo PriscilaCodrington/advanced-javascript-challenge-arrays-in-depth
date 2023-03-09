@@ -3,6 +3,10 @@
   font-weight: 300;
 }
 
+h2 {
+  margin-bottom: 64px;
+}
+
 .adv__header {
   display: flex;
   flex-direction: column;
