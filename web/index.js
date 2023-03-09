@@ -98,8 +98,6 @@ Object.entries(EXPECTATION_ITEMS).forEach(([functionName, content]) => {
 
   const handleRunClick = () => {
     const executionResult = utils[functionName](...[...input, POKEMONS]);
-    console.log(executionResult);
-    console.log();
 
     const button = result.querySelector('button');
 
@@ -110,6 +108,9 @@ Object.entries(EXPECTATION_ITEMS).forEach(([functionName, content]) => {
       button.className = 'btn btn-danger';
       button.innerText = 'Not equal ⛌';
     }
+
+    const showResult = createOutput(formatJson(executionResult) || 'undefined', `result-${functionName}`);
+    result.appendChild(showResult);
   }
 
   const row = createRow();
