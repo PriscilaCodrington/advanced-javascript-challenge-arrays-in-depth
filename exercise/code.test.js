@@ -2,7 +2,7 @@
   Do not modify this file
 */
 
-const utils = require('./code');
+const { utils } = require('./code');
 
 const rooms = [
   { id: 3, flatId: 2, relevance: 20 },

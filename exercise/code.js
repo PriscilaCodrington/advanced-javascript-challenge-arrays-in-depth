@@ -195,7 +195,7 @@ const aggregateAndOrderFlatsByRelevance = rooms => {
   // *********************************
 };
 
-module.exports = {
+export const utils = {
   getUniqueFlatIds,
   orderByRelevance,
   filterByFlatId,
