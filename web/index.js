@@ -70,7 +70,7 @@ const createRow = () => {
   return row;
 };
 
-const createName = (functionName, description) => {
+const createName = (description, functionName) => {
   const name = document.createElement('div');
   name.innerText = functionName;
   name.title = description;
@@ -81,7 +81,7 @@ const createName = (functionName, description) => {
 
 const createResult = (handleClick) => {
   const result = document.createElement('div');
-  const button = document.createElement('button')
+  const button = document.createElement('button');
   button.type = 'button';
   button.className = 'btn btn-primary';
   button.innerText = 'Run!';
@@ -100,6 +100,7 @@ Object.entries(EXPECTATION_ITEMS).forEach(([functionName, content]) => {
     const executionResult = utils[functionName](...[...input, POKEMONS]);
 
     const button = result.querySelector('button');
+    result.querySelector(`[data-output=${functionName}`)?.remove();
 
     if (isEqual(executionResult,output)) {
       button.className = 'btn btn-success';
@@ -110,13 +111,14 @@ Object.entries(EXPECTATION_ITEMS).forEach(([functionName, content]) => {
     }
 
     const showResult = createOutput(formatJson(executionResult) || 'undefined', `result-${functionName}`);
+    showResult.dataset.output = functionName;
     result.appendChild(showResult);
   }
 
   const row = createRow();
   const inputContent = createInput(content.expectations);
   const expected = createOutput(formatJson(output), functionName);
-  const name = createName(functionName, content.name);
+  const name = createName(content.name, functionName);
   const result = createResult(handleRunClick);
   
   row.appendChild(name);
