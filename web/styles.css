@@ -1,0 +1,14 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.adv__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adv__body {
+  max-width: 90%;
+  margin: auto;
+}

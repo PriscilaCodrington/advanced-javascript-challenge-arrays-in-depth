@@ -3,179 +3,58 @@
 */
 
 const { utils } = require('./code');
+const { EXPECTATION_ITEMS, POKEMONS: pokemons } = require('../data/expectations');
 
-const rooms = [
-  { id: 3, flatId: 2, relevance: 20 },
-  { id: 2, flatId: 7, relevance: 50 },
-  { id: 5, flatId: 1, relevance: 10 },
-  { id: 1, flatId: 7, relevance: 30 },
-  { id: 4, flatId: 7, relevance: 10 },
-  { id: 6, flatId: 1, relevance: 50 },
-  { id: 7, flatId: 7, relevance: 40 }
-];
-
-console.log(rooms);
-
-describe('Flats and rooms', () => {
-  describe('getUniqueFlatIds(rooms)', () => {
-    it('should return the list of unique flat ids', () => {
-      const result = utils.getUniqueFlatIds(rooms);
-
-      expect(result).toEqual([2, 7, 1]);
+describe('Pokemons', () => {
+  describe('getUniqueTypes(pokemons)', () => {
+    it('should return the list of unique pokemon types', () => {
+      const result = utils.getUniqueTypes(pokemons);
+      
+      expect(result).toEqual(EXPECTATION_ITEMS.getUniqueTypes.expectations[0].output);
     });
   });
 
-  describe('orderByRelevance(rooms)', () => {
-    it('should return the list of rooms ordered by relevance', () => {
-      const result = utils.orderByRelevance(rooms);
+  describe('orderByPower(pokemons)', () => {
+    it('should return the list of pokemons ordered by power', () => {
+      const result = utils.orderByPower(pokemons);
 
-      expect(result).toEqual([
-        { id: 5, flatId: 1, relevance: 10 },
-        { id: 4, flatId: 7, relevance: 10 },
-        { id: 3, flatId: 2, relevance: 20 },
-        { id: 1, flatId: 7, relevance: 30 },
-        { id: 7, flatId: 7, relevance: 40 },
-        { id: 2, flatId: 7, relevance: 50 },
-        { id: 6, flatId: 1, relevance: 50 }
-      ]);
-    });
-
-    it('should not mutate/modify the original list of rooms', () => {
-      const result = rooms;
-
-      expect(result).toEqual([
-        { id: 3, flatId: 2, relevance: 20 },
-        { id: 2, flatId: 7, relevance: 50 },
-        { id: 5, flatId: 1, relevance: 10 },
-        { id: 1, flatId: 7, relevance: 30 },
-        { id: 4, flatId: 7, relevance: 10 },
-        { id: 6, flatId: 1, relevance: 50 },
-        { id: 7, flatId: 7, relevance: 40 }
-      ]);
+      expect(result).toEqual(EXPECTATION_ITEMS.orderByPower.expectations[0].output);
     });
   });
 
-  describe('filterByFlatId(flatId, rooms)', () => {
-    it('should filter the list by flatId (2)', () => {
-      const flatId = 2;
-      const result = utils.filterByFlatId(flatId, rooms);
-
-      expect(result).toEqual([{ id: 3, flatId: 2, relevance: 20 }]);
-    });
-
-    it('should filter the list by flatId (7)', () => {
-      const flatId = 7;
-      const result = utils.filterByFlatId(flatId, rooms);
-
-      expect(result).toEqual([
-        { id: 2, flatId: 7, relevance: 50 },
-        { id: 1, flatId: 7, relevance: 30 },
-        { id: 4, flatId: 7, relevance: 10 },
-        { id: 7, flatId: 7, relevance: 40 }
-      ]);
-    });
-
-    it('should filter the list by flatId (1)', () => {
-      const flatId = 1;
-      const result = utils.filterByFlatId(flatId, rooms);
-
-      expect(result).toEqual([
-        { id: 5, flatId: 1, relevance: 10 },
-        { id: 6, flatId: 1, relevance: 50 }
-      ]);
-    });
-  });
-
-  describe('getFlatRoomsIds(flatId, rooms)', () => {
-    it('should return the list of rooms of a given flat (2)', () => {
-      const flatId = 2;
-      const result = utils.getFlatRoomsIds(flatId, rooms);
-
-      expect(result).toEqual([3]);
-    });
-
-    it('should return the list of rooms of a given flat (7)', () => {
-      const flatId = 7;
-      const result = utils.getFlatRoomsIds(flatId, rooms);
-
-      expect(result).toEqual([2, 1, 4, 7]);
-    });
-
-    it('should return the list of rooms of a given flat (1)', () => {
-      const flatId = 1;
-      const result = utils.getFlatRoomsIds(flatId, rooms);
-
-      expect(result).toEqual([5, 6]);
-    });
-  });
-
-  describe('getFlatRelevance(flatId, rooms)', () => {
-    it('should return the total relevance of a given flat (2)', () => {
-      const flatId = 2;
-      const result = utils.getFlatRelevance(flatId, rooms);
-
-      expect(result).toEqual(20);
-    });
-
-    it('should return the total relevance of a given flat (7)', () => {
-      const flatId = 7;
-      const result = utils.getFlatRelevance(flatId, rooms);
-
-      expect(result).toEqual(130);
-    });
-
-    it('should return the total relevance of a given flat (1)', () => {
-      const flatId = 1;
-      const result = utils.getFlatRelevance(flatId, rooms);
-
-      expect(result).toEqual(60);
-    });
-  });
-
-  describe('getFlatAggregatedInfo(flatId, rooms)', () => {
-    it('should return an object with the array of room ids and the total relevance of given flat (2)', () => {
-      const flatId = 2;
-      const result = utils.getFlatAggregatedInfo(flatId, rooms);
-
-      expect(result).toEqual({
-        flatId: 2,
-        roomIds: [3],
-        relevance: 20
-      });
-    });
-
-    it('should return an object with the array of room ids and the total relevance of given flat (7)', () => {
-      const flatId = 7;
-      const result = utils.getFlatAggregatedInfo(flatId, rooms);
-
-      expect(result).toEqual({
-        flatId: 7,
-        roomIds: [2, 1, 4, 7],
-        relevance: 130
-      });
-    });
-
-    it('should return an object with the array of room ids and the total relevance of given flat (1)', () => {
-      const flatId = 1;
-      const result = utils.getFlatAggregatedInfo(flatId, rooms);
-
-      expect(result).toEqual({
-        flatId: 1,
-        roomIds: [5, 6],
-        relevance: 60
+  describe('filterByType(type, pokemons)', () => {
+    it('should filter the list by type', () => {
+      EXPECTATION_ITEMS.filterByType.expectations.forEach(exp => {
+        const result = utils.filterByType(...exp.input);
+        expect(result).toEqual(exp.output)
       });
     });
   });
 
-  describe('aggregateAndOrderFlatsByRelevance(rooms)', () => {
-    it('should return the aggregated info of the rooms ordered by relevance', () => {
-      const result = utils.aggregateAndOrderFlatsByRelevance(rooms);
+  describe('getPokemonNamesForType(type, pokemons)', () => {
+    it('should return the list of pokemons of a given type', () => {
+      EXPECTATION_ITEMS.getPokemonNamesForType.expectations.forEach(exp => {
+        const result = utils.getPokemonNamesForType(...exp.input);
+        expect(result).toEqual(exp.output)
+      });
+    });
+  });
 
-      expect(result).toEqual([
-        { flatId: 2, roomIds: [3], relevance: 20 },
-        { flatId: 1, roomIds: [5, 6], relevance: 60 },
-        { flatId: 7, roomIds: [2, 1, 4, 7], relevance: 130 }
-      ]);
+  describe('getTotalPokemonPowerForType(type, pokemons)', () => {
+    it('should return the total power of a given type water', () => {
+      EXPECTATION_ITEMS.getTotalPokemonPowerForType.expectations.forEach(exp => {
+        const result = utils.getTotalPokemonPowerForType(...exp.input);
+        expect(result).toEqual(exp.output)
+      });
+    });
+  });
+
+  describe('getTypeAggregatedInformation(type, pokemons)', () => {
+    it('should return an object with the list of pokemon names and the total power of given type water', () => {
+      EXPECTATION_ITEMS.getTypeAggregatedInformation.expectations.forEach(exp => {
+        const result = utils.getTypeAggregatedInformation(...exp.input);
+        expect(result).toEqual(exp.output)
+      });
     });
   });
 });
