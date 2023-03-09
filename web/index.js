@@ -151,13 +151,11 @@ Object.entries(EXPECTATION_ITEMS).forEach(([functionName, content]) => {
     row.updateSelectedInput(selected);
   };
 
-  
-
   row.createInput(content.expectations, handleSelectInput);
   row.createOutput();
   row.createName(content.name);
   row.createResult();
   
   grid.appendChild(row.htmlElement);
-})
+});
 
