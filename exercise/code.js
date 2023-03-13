@@ -6,7 +6,6 @@ const getUniqueTypes = pokemons => {
   // *********************************
   // Write your code here
   // *********************************
-  return ['water', 'electric', 'fire'];
 };
 
 
