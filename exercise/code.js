@@ -3,44 +3,58 @@
 */
 
 const getUniqueTypes = pokemons => {
-  // *********************************
-  // Write your code here
-  // *********************************
-};
+
+    let uniqueTypes = [];
+    pokemons.forEach((pokemon) => {
+      if (!uniqueTypes.includes(pokemon.type)) {
+        uniqueTypes.push(pokemon.type)
+      }
+    });
+    
+    return uniqueTypes
+  };
 
 
 const orderByPower = pokemons => {
-  // *********************************
-  // Write your code here
-  // *********************************
+
+    return pokemons.sort((a,b) => a.power - b.power)
+  
 };
+
 
 
 const filterByType = (type, pokemons) => {
-  // *********************************
-  // Write your code here
-  // *********************************
+
+  return pokemons.filter((pokemon) => {
+      return pokemon.type === type
+  });
+
 };
 
-
 const getPokemonNamesForType = (type, pokemons) => {
-  // *********************************
-  // Write your code here
-  // *********************************
+  let pokeName = pokemons.filter(pokemon => pokemon.type === type)
+  return pokeName.map(pokemon => pokemon.name)
+  
 };
 
 
 const getTotalPokemonPowerForType = (type, pokemons) => {
-  // *********************************
-  // Write your code here
-  // *********************************
+  let pokeTypePower = pokemons.filter(pokemon => pokemon.type ===type);
+  return pokeTypePower.reduce((acc, poke) => acc += poke.power, 0);
 };
 
 
-const getTypeAggregatedInformation = (type, pokemons) => {
-  // *********************************
-  // Write your code here
-  // *********************************
+const getTypeAggregatedInformation = ( type, pokemons) => {
+  //Doesn't work, I have to fixed it.
+  let pokeObj = pokemons.reduce((acc,elem) => {
+    if (elem.type == type){
+       return {
+        names: acc.names + ", " + elem.name,
+        plusPower: acc.plusPower + elem.power}
+       }},{names: "", plusPower: 0})
+    
+        return pokeObj
+    
 };
 
 export const utils = {
