@@ -40,21 +40,28 @@ const getPokemonNamesForType = (type, pokemons) => {
 
 const getTotalPokemonPowerForType = (type, pokemons) => {
   let pokeTypePower = pokemons.filter(pokemon => pokemon.type ===type);
-  return pokeTypePower.reduce((acc, poke) => acc += poke.power, 0);
+  return pokeTypePower.reduce((acc, poke) =>  { console.log(acc) 
+    return acc += poke.power}, 0);
 };
 
 
 const getTypeAggregatedInformation = ( type, pokemons) => {
-  //Doesn't work, I have to fixed it.
-  let pokeObj = pokemons.reduce((acc,elem) => {
-    if (elem.type == type){
-       return {
-        names: acc.names + ", " + elem.name,
-        plusPower: acc.plusPower + elem.power}
-       }},{names: "", plusPower: 0})
-    
+  
+        let pokeFilt = pokemons.filter(pokemon => pokemon.type ===type);
+        console.log(pokeFilt); 
+        let pokePower = pokeFilt.reduce((acc, poke) => acc += poke.power, 0)
+        console.log(pokePower)
+        let pokeNames = pokeFilt.reduce((acc,poke) => acc = acc + '' + poke.name + ' ,', " " );
+        console.log(pokeNames)
+
+        const pokeObj = {
+              type: type,
+              pokemons: [pokeNames],
+              power: pokePower
+          }
+      console.log(pokeObj)
         return pokeObj
-    
+        
 };
 
 export const utils = {
