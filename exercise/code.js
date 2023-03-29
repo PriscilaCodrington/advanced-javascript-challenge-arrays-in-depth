@@ -45,10 +45,10 @@ const getTotalPokemonPowerForType = (type, pokemons) => {
 };
 
 
-const getTypeAggregatedInformation = ( type, pokemons) => {
+const getTypeAggregatedInformation = (type, pokemons) => {
   
-        let pokeFilt = pokemons.filter(pokemon => pokemon.type ===type);
-        console.log(pokeFilt); 
+        /*let pokeFilt = pokemons.filter(pokemon => pokemon.type ===type);
+        //console.log(pokeFilt); 
         let pokePower = pokeFilt.reduce((acc, poke) => acc += poke.power, 0)
         console.log(pokePower)
         let pokeNames = pokeFilt.reduce((acc,poke) => acc = acc + '' + poke.name + ' ,', " " );
@@ -61,8 +61,21 @@ const getTypeAggregatedInformation = ( type, pokemons) => {
           }
       console.log(pokeObj)
         return pokeObj
-        
+        */
+        return pokemons.reduce((acc, pokemon) => {
+          
+          if(pokemon.type===type){
+           acc.pokemons.push(pokemon.name);
+           acc.power+=pokemon.power;
+          return acc;
+          }
+          return acc;
+       }, {type, pokemons: [], power: 0})
+
+       
 };
+
+
 
 export const utils = {
   getUniqueTypes,
